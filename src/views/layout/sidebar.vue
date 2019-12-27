@@ -57,8 +57,10 @@
         return API.menu.nav().then(({data}) => {
           if (data && data.code === 0) {
             this.UPDATE_MENU_NAV_LIST(data.menuList)
+            sessionStorage.setItem('permissions', JSON.stringify(data.permissions || '[]'))
           } else {
             this.UPDATE_MENU_NAV_LIST([])
+            sessionStorage.setItem('permissions', '[]')
             this.$message.error(data.msg)
           }
         })
