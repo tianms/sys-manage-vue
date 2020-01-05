@@ -1,13 +1,21 @@
-import request from '../request'
-import requestParam from '../requestParam'
-import isInteger from 'lodash/isInteger'
+import request from '../../request'
+import requestParam from '../../requestParam'
 
 // 获取角色列表
 export function list (params) {
   return request({
     url: '/sys/role/list',
-    method: 'get',
-    params: requestParam(params, 'get')
+    method: 'post',
+    data: requestParam(params, 'post', false)
+  })
+}
+
+// 获取角色分页列表
+export function pageList (params) {
+  return request({
+    url: '/sys/role/pageList',
+    method: 'post',
+    data: requestParam(params, 'post', false)
   })
 }
 
@@ -15,17 +23,17 @@ export function list (params) {
 export function select () {
   return request({
     url: '/sys/role/select',
-    method: 'get',
-    params: requestParam({}, 'get')
+    method: 'post',
+    data: requestParam({}, 'post', false)
   })
 }
 
 // 获取角色信息
-export function info (id) {
+export function info (params) {
   return request({
-    url: '/sys/role/info' + (isInteger(id) ? `/${id}` : ''),
-    method: 'get',
-    params: requestParam({}, 'get')
+    url: '/sys/role/info',
+    method: 'post',
+    data: requestParam(params, 'post', false)
   })
 }
 

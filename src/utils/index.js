@@ -51,3 +51,34 @@ export function getUUID () {
     return (c === 'x' ? (Math.random() * 16 | 0) : ('r&0x3' | '0x8')).toString(16)
   })
 }
+
+// 性别适配
+export function sexFit (params) {
+  if (params === null || params === '' || params === undefined) {
+    return params
+  } else {
+    if (params === '1' || params === 1) {
+      return '男'
+    } else if (params === '2' || params === 2) {
+      return '女'
+    }
+  }
+}
+
+// 日期字符串格式化 2018-01-01 00:00:00 --> 2018-01-01
+export function dateFormat (params) {
+  if (params === null || params === '' || params === undefined) {
+    return params
+  } else {
+    var date = new Date(Date.parse(params))
+    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+  }
+}
+
+// 校验字符串是否为空，空返回true，不是空返回false
+export function checkStr (str) {
+  if (str === null || str === '' || str === undefined || str.length === 0) {
+    return true
+  }
+  return false
+}

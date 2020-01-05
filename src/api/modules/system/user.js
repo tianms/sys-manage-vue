@@ -1,5 +1,5 @@
-import request from '../request'
-import requestParam from '../requestParam'
+import request from '../../request'
+import requestParam from '../../requestParam'
 
 // 获取用户列表
 export function list (params) {

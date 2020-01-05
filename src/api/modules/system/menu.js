@@ -1,13 +1,12 @@
-import request from '../request'
-import requestParam from '../requestParam'
-import isInteger from 'lodash/isInteger'
+import request from '../../request'
+import requestParam from '../../requestParam'
 
 // 获取导航菜单列表 / 权限
 export function nav () {
   return request({
     url: '/sys/menu/nav',
-    method: 'get',
-    params: requestParam({}, 'get')
+    method: 'post',
+    data: requestParam({}, 'post', false)
   })
 }
 
@@ -15,8 +14,8 @@ export function nav () {
 export function list () {
   return request({
     url: '/sys/menu/list',
-    method: 'get',
-    params: requestParam({}, 'get')
+    method: 'post',
+    data: requestParam({}, 'post', false)
   })
 }
 
@@ -24,17 +23,17 @@ export function list () {
 export function select () {
   return request({
     url: '/sys/menu/select',
-    method: 'get',
-    params: requestParam({}, 'get')
+    method: 'post',
+    data: requestParam({}, 'post', false)
   })
 }
 
 // 获取菜单信息
-export function info (id) {
+export function info (params) {
   return request({
-    url: '/sys/menu/info' + (isInteger(id) ? `/${id}` : ''),
-    method: 'get',
-    params: requestParam({}, 'get')
+    url: '/sys/menu/info',
+    method: 'post',
+    data: requestParam(params, 'post', false)
   })
 }
 
@@ -57,10 +56,10 @@ export function update (params) {
 }
 
 // 删除菜单
-export function del (id) {
+export function del (params) {
   return request({
-    url: '/sys/menu/delete' + (isInteger(id) ? `/${id}` : ''),
+    url: '/sys/menu/delete',
     method: 'post',
-    data: requestParam()
+    data: requestParam(params, 'post', false)
   })
 }
