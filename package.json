@@ -16,6 +16,7 @@
     "babel-polyfill": "6.26.0",
     "element-ui": "^2.3.7",
     "font-awesome": "^4.7.0",
+    "js-md5": "^0.7.3",
     "lodash": "4.17.5",
     "node-sass": "^4.13.0",
     "postcss-url": "^7.3.2",

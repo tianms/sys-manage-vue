@@ -13,7 +13,7 @@
               <el-input size="medium" v-model="dataForm.userName" placeholder="帐号"></el-input>
             </el-form-item>
             <el-form-item prop="passWord">
-              <el-input size="medium" v-model="dataForm.password" type="password" placeholder="密码"></el-input>
+              <el-input size="medium" v-model="dataForm.passWord" type="password" placeholder="密码"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button size="medium" class="login-btn-submit" type="primary" @click="dataFormSubmit()">登录</el-button>
@@ -32,14 +32,14 @@
       return {
         dataForm: {
           userName: '',
-          password: '',
+          passWord: '',
           uuid: ''
         },
         dataRule: {
           userName: [
             { required: true, message: '帐号不能为空', trigger: 'blur' }
           ],
-          password: [
+          passWord: [
             { required: true, message: '密码不能为空', trigger: 'blur' }
           ]
         },
@@ -52,8 +52,8 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             var params = {
-              'userName': this.dataForm.userName,
-              'passWord': this.dataForm.passWord
+              'userName': this.$base64.encode(this.dataForm.userName), // 对用户进行加密操作，如果需要添加秘钥后面直接追加秘钥
+              'passWord': this.$md5(this.dataForm.passWord) // md5 加密密码
             }
             API.common.login(params).then(({data}) => {
               if (data && data.code === 0) {

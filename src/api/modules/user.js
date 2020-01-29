@@ -1,5 +1,5 @@
-import request from '../../request'
-import requestParam from '../../requestParam'
+import request from '../request'
+import requestParam from '../requestParam'
 
 // 获取用户列表
 export function list (params) {
@@ -11,11 +11,12 @@ export function list (params) {
 }
 
 // 获取用户信息
-export function info (params) {
+export function info () {
   return request({
     url: '/sys/user/info',
     method: 'post',
-    data: requestParam(params, 'post', false)
+    dataType: 'JSONP',
+    data: requestParam('', 'post', false)
   })
 }
 

@@ -19,10 +19,10 @@ export function list () {
   })
 }
 
-// 获取上级菜单
-export function select () {
+// 获取不包括按钮的菜单列表（主要用于菜单编辑选择上级菜单使用）
+export function noButtonMenuList () {
   return request({
-    url: '/sys/menu/select',
+    url: '/sys/menu/noButtonMenuList',
     method: 'post',
     data: requestParam({}, 'post', false)
   })
