@@ -30,7 +30,7 @@
 
 <script>
   import API from '@/api'
-  import { treeDataTranslate } from '@/utils'
+  import { treeDataTranslate, checkStr } from '@/utils'
   export default {
     data () {
       return {
@@ -41,7 +41,7 @@
           children: 'children'
         },
         dataForm: {
-          id: 0,
+          id: '',
           roleName: '',
           remark: ''
         },
@@ -55,7 +55,12 @@
     },
     methods: {
       init (id) {
-        this.dataForm.id = id || 0
+        if (checkStr(id)) {
+          this.dataForm.id = ''
+        } else {
+          this.dataForm.id = id
+        }
+        // 初始化获取菜单列表
         API.menu.list().then(({data}) => {
           this.menuList = treeDataTranslate(data, 'menuId')
         }).then(() => {
@@ -65,15 +70,11 @@
             this.$refs.menuListTree.setCheckedKeys([])
           })
         }).then(() => {
-          if (this.dataForm.id) {
-            API.role.info(this.dataForm.id).then(({data}) => {
+          if (!checkStr(this.dataForm.id)) {
+            API.role.info({ id: this.dataForm.id }).then(({data}) => {
               if (data && data.code === 0) {
                 this.dataForm.roleName = data.role.roleName
                 this.dataForm.remark = data.role.remark
-                var idx = data.role.menuIdList.indexOf(this.tempKey)
-                if (idx !== -1) {
-                  data.role.menuIdList.splice(idx, data.role.menuIdList.length - idx)
-                }
                 this.$refs.menuListTree.setCheckedKeys(data.role.menuIdList)
               }
             })
@@ -88,7 +89,7 @@
               'roleId': this.dataForm.id || undefined,
               'roleName': this.dataForm.roleName,
               'remark': this.dataForm.remark,
-              'menuIdList': [].concat(this.$refs.menuListTree.getCheckedKeys(), [this.tempKey], this.$refs.menuListTree.getHalfCheckedKeys())
+              'menuIdList': [].concat(this.$refs.menuListTree.getCheckedKeys())
             }
             var tick = !this.dataForm.id ? API.role.add(params) : API.role.update(params)
             tick.then(({data}) => {
